@@ -59,3 +59,7 @@ jobs:
           echo "_____________"
           echo "_____________"
           ls -lha ./test-folder/
+          echo "_____________"
+          echo "_____________"
+          echo "_____________"
+          ls -lha ./test-folder/ubuntu-artifacts

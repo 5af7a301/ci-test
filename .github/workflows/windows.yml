@@ -6,7 +6,17 @@ jobs:
   zip-test-script:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      
       - name: Run script
         shell: pwsh
         run: ./.github/scripts/windows/zip-test.ps1
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Test release name
+          files: |
+            info.json
+            archive.zip

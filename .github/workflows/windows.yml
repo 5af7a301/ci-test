@@ -6,7 +6,7 @@ jobs:
   zip-test-script:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Run script
         shell: pwsh
-        run: |
-          ./.github/scripts/windows/zip-test.ps1
+        run: ./.github/scripts/windows/zip-test.ps1

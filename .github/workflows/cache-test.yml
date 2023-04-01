@@ -57,3 +57,10 @@ jobs:
           echo "_____________"
           echo "_____________"
           ls -lha ./test-folder/ubuntu-artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Test release
+          files: |
+            ./test-folder/ubuntu-artifacts/*

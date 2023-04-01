@@ -17,6 +17,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Test release name
-          files: |
-            info.json
-            archive.zip

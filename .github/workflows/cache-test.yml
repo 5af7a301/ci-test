@@ -1,0 +1,57 @@
+name: Cache test
+
+on: push
+
+jobs:
+
+
+
+  cache-create:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: ./test-folder
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create test file
+        run: echo -e "This will be the text in the file \n this is the new line" >> file.txt 
+
+      - name: Move file to artifacts folder
+        run: |
+          mkdir ubuntu-artifacts
+          mv ./file.txt ./ubuntu-artifacts
+          ls -lha
+
+      - name: Cache artifacts
+        uses: actions/cache@v3
+        with:
+          path: ./test-folder/ubuntu-artifacts
+          key: ubuntu-artifacts-cache
+
+
+  cache-use:
+    needs: cache-create
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Restore Ubuntu artifacts
+        id: ubuntu-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: ./test-folder/ubuntu-artifacts
+          key: ubuntu-artifacts-cache
+      - name: Save restores Ubuntu artifacts
+        uses: actions/cache/save@v3
+        with:
+          path: ./ubuntu-artifacts
+          key: ${{ steps.ubuntu-restore.outputs.cache-primary-key }}
+
+      - name: Check files
+        run: ls -lha
+

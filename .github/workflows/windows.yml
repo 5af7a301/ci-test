@@ -8,4 +8,5 @@ jobs:
     steps:
       - name: Run script
         shell: pwsh
-        run: ./.github/scripts/windows/zip-test.ps1
+        run: |
+          ./.github/scripts/windows/zip-test.ps1

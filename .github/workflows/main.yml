@@ -1,0 +1,41 @@
+name: Actions test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  version-info:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      version_value: ${{ steps.version-value-id.outputs.result }}
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Gets the version value from the info.json file
+      - name: Get version value
+        run: echo "VERSION_VALUE=$(node -p "require('./info.json').version")" >> $GITHUB_ENV
+
+      # Shows the version value that is now in a env variable
+      - name: Show version value
+        run: echo "version $VERSION_VALUE"
+
+      # sets the version value to the output with the specified id
+      - name: Set to output
+        id: version-value-id
+        run: echo "result=$VERSION_VALUE" >> "$GITHUB_OUTPUT"
+        
+  # Example of a job that used the version info from previous job
+  using-version-info:
+    runs-on: ubuntu-latest
+    
+    # This is dependent on the previous job
+    needs: version-info
+
+    steps:
+      - name: Use the value from the previous job 
+        env:
+          TEST_VALUE: ${{needs.version-info.outputs.version_value}}
+        run: echo "Testing value $TEST_VALUE"

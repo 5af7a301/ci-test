@@ -12,3 +12,9 @@ jobs:
     steps:    
       - name: Hello
         run: echo "Hello!!!!!!"
+      
+      - name: Get tag value
+        run: echo "TAG=$(GITHUB_REF#refs/tags/)" >> $GITHUB_ENV
+      
+      - name: Show tag value
+        run: echo tag is $TAG

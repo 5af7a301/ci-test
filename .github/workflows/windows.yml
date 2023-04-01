@@ -1,0 +1,11 @@
+name: Windows tests
+
+on: push
+
+jobs:
+  zip-test-script:
+    runs-on: windows-latest
+    steps:
+      - name: Run script
+        shell: pwsh
+        run: ./.github/scripts/windows/zip-test.ps1

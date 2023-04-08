@@ -1,0 +1,16 @@
+name: Master and Master PR test
+
+on:
+  pull_request:
+    branches: master
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Hello
+        run: echo "Hello!!!"

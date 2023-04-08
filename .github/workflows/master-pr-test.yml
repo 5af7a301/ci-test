@@ -2,7 +2,7 @@ name: Master and Master PR test
 
 on:
   pull_request:
-    branches: master
+    branches: new-branch
   push:
     branches: master
 
